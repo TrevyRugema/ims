@@ -1,0 +1,124 @@
+Hello in order to help you understand the application better we are going to design the above mentioned application using case360.
+
+First this is the big picture of what we are going to do.
+Employee Management System
+- Staff Recruitment
+- Staff Training
+- Staff Registration
+- Work Logging
+- Evaluation
+- Leave Management
+- Complaint Management
+- Disciplinary
+- Salary Payment
+
+Staff Recruitment
+Make a workflow for recruiting staff. If the staff is hired, we swork on registering them.
+
+Staff Registration will be a process for creating a new staff file and adding more information like appointment letters and contracts to a new staff flime
+
+Staff Training
+This will be a filestore created to be attached to a staff file that exists
+
+Work Logging
+We will enable the staff to make weekly reports that should be acknowledged by their supervisors
+
+Staff Evaluation
+Make a staff Quarterly workplan that turns into evaluation. Should have the Weekly Reports as the children.
+
+Leave Management
+Annual Leave Requests that calculate staff balances, Other types of leave: Time out, Grievance, Sick, Marriage, etc.
+
+Complaint Management
+Staff can make complaints against other staff that are reviewed by the HR Department
+
+Disciplinary
+Should be linked to Complaint Management if the complaint is lodged against one or many staff members
+
+Salary Payment
+Should be a form with salary slips as children. Simple payroll on a monthly basis to be initiated by the HR Officer and Approved by the Head of HR. Depending on the job positions. Any bonus payments should be justified by an attached evaluation report.
+
+Staff File
+Staff File should link it with the corresponding user profile. Should have tabs related to all the methioned areas of the staff i.e. Recruitment and promotions, Evaluations, Reporting etc. The staff file itself is not really edited but all the other components of the staff are what contribute to it. Most attachments to this file should be automatic either by way of user name or ID No.
+
+
+
+Staff Recruitment.
+
+At the reception, the receptionist scans the files of the applicant. The Primary field of the application should be the ID no. and it's what will be used to track the applicant's documents in the system.
+When scanning, all the applicant's documents are captured as one batch with different documents.
+The fields to be considered here are:
+- ID No.
+- First Name
+- Last Name
+- Date of Birth
+- Document Type
+- Document Description
+The document types to be considered are:
+- Cover/Application Letter
+- ID
+- CV
+- Education Certificate
+- Other
+When the receptionist scans the documents, the system should try to locate a file or recruitment process with the same ID as captured in the scanned. If one is present, attach the new documents to the existing. If none is present, Create a new Casefolder and start a new Recruitment process.
+
+The recruitment process should go as follows
+Start -> HR Verification -> Department Review -> Applicatnt Interview -> Application Evaluation -> Applicant Notification
+Receprionist -> HR Officer -> Head of Target Department -> Interviewer -> Head of HR
+
+The next step should be Staff registration if the staff is hired.
+
+
+
+What to do.
+
+Create a new filestore, Applicant Document with the fields:
+- ID No.
+- First Name
+- Last Name
+- Date of Birth
+- Document Type
+    - Cover Letter
+    - ID
+    - CV
+    - Education Certificate
+    - Other
+- Document Description
+
+Create a new Formdata called Department with the fields:
+- Department Name
+- Head of Department (Should be a list of roles)
+- Parent ID
+Make a relation on the form data with the Department as the child
+
+Create a Casefolder Job Application with the fields:
+- ID No.
+- First Name
+- Last Name
+- Date of Birth
+- Application Date
+- Position
+- Department
+
+Make a Content item on the casefolder template to have the Staff Document filestore as the content and remember to add the script name for it.
+
+Make the workflow for Recruitment with the casefolder as the Repository Key object and the ID No field.
+Start -> HR Verification -> Department Review -> Applicant Interview -> Application Evaluation -> Applicant Notification
+Receptionist -> HR Officer -> Head of Target Department -> Interviewer -> Head of HR
+
+In your capture software, create a scanning job called Job Application with the fields:
+Batch level:
+- ID No.
+- First Name
+- Last Name
+- Date of Birth
+- Position
+- Application Date
+Document level:
+- Document Type
+- Document Description
+
+In the capture broker, make a script that captures the above information into the casefolder and creates a workflow to be sent to the next step after attaching the documents. Use the console to create an 'operation complete' message.
+
+
+
