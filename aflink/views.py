@@ -152,7 +152,7 @@ def create_jobcard(request):
 
 class JobCardListView(ListView):
     model = JobCard
-    template_name = 'aflink/jobCard_list.html'
+    template_name = 'aflink/jobcard_list.html'
     context_object_name = 'job'
 
 

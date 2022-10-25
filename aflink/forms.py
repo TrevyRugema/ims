@@ -1,7 +1,7 @@
 from django import forms
 
 from users.models import User
-from .models import Item, Drop, Product, Order, Delivery
+from .models import Item, Drop, JobCard, Order, Delivery
 
 
 class SupplierForm(forms.Form):
@@ -127,7 +127,7 @@ class DropForm(forms.ModelForm):
 
 class JobCardForm(forms.ModelForm):
     class Meta:
-        model = Product
+        model = JobCard
         fields = ['name', 'sortno']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}),
@@ -138,11 +138,11 @@ class JobCardForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['supplier', 'product', 'design', 'color', 'customer', 'item_name', 'drop']
+        fields = ['supplier', 'jobcard', 'design', 'color', 'customer', 'item_name', 'drop']
 
         widgets = {
             'supplier': forms.Select(attrs={'class': 'form-control', 'id': 'supplier'}),
-            'product': forms.Select(attrs={'class': 'form-control', 'id': 'product'}),
+            'jobcard': forms.Select(attrs={'class': 'form-control', 'id': 'jobcard'}),
             'design': forms.TextInput(attrs={'class': 'form-control', 'id': 'design'}),
             'color': forms.TextInput(attrs={'class': 'form-control', 'id': 'color'}),
             'customer': forms.Select(attrs={'class': 'form-control', 'id': 'customer'}),

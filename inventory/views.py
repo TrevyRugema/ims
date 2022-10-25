@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from aflink.models import Product, Supplier, Customer, Order,Item
+from aflink.models import JobCard, Supplier, Customer, Order,Item
 
 @login_required(login_url='login')
 def dashboard(request):
     total_item = Item.objects.count()
-    total_jobcard = Product.objects.count()
+    total_jobcard = JobCard.objects.count()
     total_supplier = Supplier.objects.count()
     total_customer = Customer.objects.count()
     total_oder = Order.objects.count()
