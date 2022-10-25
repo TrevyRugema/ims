@@ -125,7 +125,7 @@ class DropForm(forms.ModelForm):
 
 
 
-class ProductForm(forms.ModelForm):
+class JobCardForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'sortno']

@@ -5,7 +5,7 @@ from .models import (
     Customer,
     Item,
     Drop,
-    Product,
+    JobCard,
     Order,
     Delivery
 )
@@ -23,6 +23,6 @@ admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Item)
 admin.site.register(Drop)
-admin.site.register(Product)
+admin.site.register(JobCard)
 admin.site.register(Order)
 admin.site.register(Delivery)

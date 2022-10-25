@@ -8,7 +8,7 @@ from .models import (
     Customer,
     Item,
     Drop,
-    Product,
+    JobCard,
     Order,
     Delivery
 )
@@ -17,7 +17,7 @@ from .forms import (
     CustomerForm,
     ItemForm,
     DropForm,
-    ProductForm,
+    JobCardForm,
     OrderForm,
     DeliveryForm
 )
@@ -135,25 +135,25 @@ class DropListView(ListView):
     context_object_name = 'drop'
 
 
-# Product views
+# JobCard views
 @login_required(login_url='login')
-def create_product(request):
-    forms = ProductForm()
+def create_jobcard(request):
+    forms = JobCardForm()
     if request.method == 'POST':
-        forms = ProductForm(request.POST)
+        forms = JobCardForm(request.POST)
         if forms.is_valid():
             forms.save()
-            return redirect('product-list')
+            return redirect('jobcard-list')
     context = {
         'form': forms
     }
-    return render(request, 'aflink/addProduct.html', context)
+    return render(request, 'aflink/addjobCard.html', context)
 
 
-class ProductListView(ListView):
-    model = Product
-    template_name = 'aflink/product_list.html'
-    context_object_name = 'product'
+class JobCardListView(ListView):
+    model = JobCard
+    template_name = 'aflink/jobCard_list.html'
+    context_object_name = 'job'
 
 
 # Order views
@@ -164,7 +164,7 @@ def create_order(request):
         forms = OrderForm(request.POST)
         if forms.is_valid():
             supplier = forms.cleaned_data['supplier']
-            product = forms.cleaned_data['product']
+            JobCard = forms.cleaned_data['JobCard']
             design = forms.cleaned_data['design']
             color = forms.cleaned_data['color']
             customer = forms.cleaned_data['customer']
@@ -172,7 +172,7 @@ def create_order(request):
             drop = forms.cleaned_data['drop']
             Order.objects.create(
                 supplier=supplier,
-                product=product,
+                JobCard=JobCard,
                 design=design,
                 color=color,
                 customer=customer,

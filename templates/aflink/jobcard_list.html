@@ -48,13 +48,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% if product %}
-                            {% for product in product %}
+                            {% if job %}
+                            {% for job in job %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.sortno }}</td>
-                                <td>{{ product.created_date }}</td>
+                                <td>{{ job.name }}</td>
+                                <td>{{ job.sortno }}</td>
+                                <td>{{ job.created_date }}</td>
                             </tr>
                             {% endfor %}
                             {% else %}

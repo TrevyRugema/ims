@@ -78,7 +78,7 @@ class Drop(models.Model):
     def __str__(self):
         return self.item
 
-class Product(models.Model):
+class JobCard(models.Model):
     name = models.CharField(max_length=120, unique=True)
     sortno = models.PositiveIntegerField()
     created_date = models.DateField(auto_now_add=True)
@@ -97,7 +97,7 @@ class Order(models.Model):
         ('bulk', 'Bulk'),
     )
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    jobcard = models.ForeignKey(JobCard, on_delete=models.CASCADE)
     design = models.CharField(max_length=50)
     color = models.CharField(max_length=50)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
@@ -108,7 +108,7 @@ class Order(models.Model):
 
 
     def __str__(self):
-        return self.product.name
+        return self.jobcard.name
 
 
 class Delivery(models.Model):
