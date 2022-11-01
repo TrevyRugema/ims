@@ -42,8 +42,11 @@
                         <thead>
                             <tr>
                                 <th class="serial">Id</th>
-                                <th>Name</th>
-                                <th>Sort No</th>
+                                <th>Job Type </th>
+                                <th>Order no</th>
+                                <th>Date</th>
+                                <th>Date</th>
+                                <th>Date</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -52,21 +55,22 @@
                             {% for job in job %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ job.name }}</td>
-                                <td>{{ job.sortno }}</td>
-                                <td>{{ job.created_date }}</td>
+                                <td>{{ job.job_type}}</td>
+                                <td>{{ job.order_number }}</td>
+                                <td>{{ job.date }}</td>
+                                <td>{{ job.customer }}</td>
+                                <td>{{ job.contact }}</td>
+                                <td>{{ job.job_descritpion }}</td>
                             </tr>
                             {% endfor %}
                             {% else %}
                                 <tr><td>No Job Card Data</td></tr>
-                            {% endif %}
-                        </tbody>
+                            {% endif %}   
+                       </tbody>
                     </table>
                 </div> <!-- /.table-stats -->
             </div>
         </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
-
-    
+    </div>  <!-- /.col-lg-8 -->   
 </div>
 {% endblock content %}

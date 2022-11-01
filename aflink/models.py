@@ -1,8 +1,17 @@
 from email.policy import default
 from secrets import choice
+from tabnanny import verbose
+from turtle import onclick
 from django.utils import timezone
 from django.db import models
 from users.models import User
+
+
+
+class Stock(models.Model):
+    pass
+
+
 
 
 class Supplier(models.Model):
@@ -50,11 +59,9 @@ class Item(models.Model):
     def total_cost(self):
         total=self.quantity * self.unit_cost
         return total
-        
-
-
     class Meta:
         db_table="Item Receiving"
+       
 
 
 class Drop(models.Model):
@@ -78,13 +85,28 @@ class Drop(models.Model):
     def __str__(self):
         return self.item
 
+
 class JobCard(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    sortno = models.PositiveIntegerField()
-    created_date = models.DateField(auto_now_add=True)
+    job_type=models.CharField("Job Type", max_length=50,null=True) #  here ithis field will have a choice 
+    order_number=models.CharField("Order Number", max_length=50,null=True)
+    date=models.DateField(null=True)
+    customer=models.CharField(max_length=200,null=True)
+    contact=models.CharField(max_length=13,null=True)
+    job_descritpion=models.TextField("Job Description",null=True)
 
     def __str__(self):
-        return self.name
+        return self.job_type
+
+class Material(models.Model):
+    material_requested=models.CharField("Material Requested", max_length=100)
+    Description=models.TextField()
+    quantity=models.IntegerField()
+    width=models.DecimalField(max_digits=10,decimal_places=0)
+    height=models.DecimalField(max_digits=20,decimal_places=0)
+    jobcard=models.ForeignKey(JobCard, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.material_requested
 
 
 class Order(models.Model):
@@ -94,7 +116,6 @@ class Order(models.Model):
         ('approved', 'Approved'),
         ('processing', 'Processing'),
         ('complete', 'Complete'),
-        ('bulk', 'Bulk'),
     )
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     jobcard = models.ForeignKey(JobCard, on_delete=models.CASCADE)

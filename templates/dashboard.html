@@ -3,8 +3,9 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block content %}
-    <!-- Widgets  -->
-    <div class="row">
+    <body bgcolor="#803F56;">
+        <!-- Widgets  -->
+    <div  class="row">
         <div class="col-lg-3 col-md-6">
             <div class="card">
                 <div class="card-body" style="background-color: blue">
@@ -14,7 +15,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count" style="color: white">{{ season }}</span></div>
+                                <div class="stat-text"><span class="count" style="color: white">{{ item }}</span></div>
                                 <div class="stat-heading" style="color: white">Item Received</div>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count" style="color: white">{{ buyer }}</span></div>
+                                <div class="stat-text"><span class="count" style="color: white">{{ customer }}</span></div>
                                 <div class="stat-heading" style="color: white">Customer</div>
                             </div>
                         </div>
@@ -94,14 +95,14 @@
                             <table class="table ">
                                 <thead>
                                     <tr>
-                                        <th class="serial">#</th>
+                                        <th class="serial">Id</th>
                                         <th>Supplier</th>
-                                        <th>Product</th>
-                                        <th>Design</th>
-                                        <th>Color</th>
-                                        <th>Buyer</th>
-                                        <th>Season</th>
-                                        <th>Category</th>
+                                        <th>Job Card</th>
+                                        <!-- <th>Design</th> -->
+                                        <!-- <th>Color</th> -->
+                                        <th>Customer</th>
+                                        <th>Item </th>
+                                        <!-- <th>Category</th> -->
                                         <th>Date</th>
                                         <th>Status</th>
                                     </tr>
@@ -149,5 +150,6 @@
             
         </div>
     </div>
+    </body>
     <!-- /.orders -->
 {% endblock content %}

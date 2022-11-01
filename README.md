@@ -1,4 +1,3 @@
-# inventory-management
-This is a inventory management system
-
 # Django Web Application
+This is a Logistics management system
+

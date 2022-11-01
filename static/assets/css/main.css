@@ -3,7 +3,10 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-background-image: url('https://pbs.twimg.com/media/FCOhEt9VUAopakx?format=jpg&name=small');
+background-image: linear-gradient(to right, #00b4db, #0083b0);
+/* background-image: url('https://pbs.twimg.com/media/FCOhEt9VUAopakx?format=jpg&name=small'); */
+/* background-color:#FFFFFF; */
+background-image: linear-gradient(to right, #434343 0%, black 100%);
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -23,8 +26,10 @@ width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
-h3{
-    position:center
+.card-header h3{
+    text-align:center;
+    color:white
+    
 }
 
 .social_icon span{
@@ -50,7 +55,7 @@ top: -45px;
 
 .input-group-prepend span{
 width: 50px;
-background-color: #FFC312;
+background-color: #BF5555;
 color: black;
 border:0 !important;
 }
@@ -75,8 +80,9 @@ margin-right: 5px;
 
 .login_btn{
 color: black;
-background-color: #FFC312;
-width: 10px;
+background-color: #BF5555;
+width: 100px;
+
 }
 
 .login_btn:hover{
@@ -85,9 +91,25 @@ background-color: white;
 }
 
 .links{
-color: white;
+color: #BF5555;
+font-size:15px;
+margin:32px;
 }
 
 .links a{
 margin-left: 4px;
+color: #BF5555;
+}
+.links a:hover{
+    margin-left: 4px;
+    color: white;
+    }
+
+.card-footer a{
+    color:#BF5555;
+}
+
+
+.card-footer a:hover{
+    color:white;
 }

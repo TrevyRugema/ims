@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Add Items{% endblock title %}
 
@@ -17,9 +18,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Season</a></li>
-                            <li class="active">Add</li>
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li><a href="{% url 'item-list' %}">Item</a></li>
                         </ol>
                     </div>
                 </div>
@@ -30,30 +30,25 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <strong class="card-title">Add Item Receiving</strong>
-            </div>
-            <div class="card-body">
-                <!-- Credit Card -->
-                <div id="pay-invoice">
-                    <div class="card-body">
-                        <form action="#" method="post" novalidate="novalidate" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{form.as_p}}
-                                <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
-                                    <span id="payment-button-amount">Submit</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-            </div>
-        </div> <!-- .card -->
-
-    </div><!--/.col-->
+<div class="container pt-5">
+    <form action="#" method="post" novalidate>
+        {%  csrf_token %}
+        {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{field.label}}</label>
+            {{ field|add_class:'form-control'}}
+            {%  for error in field.errors %}
+                <span class="help-block" >{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">
+                <span class="glyhicon glyphicob-ok"><a href="{% url 'item-list' %}">Submit</a></span>
+            </button>
+            <a href="{% url 'dashboard' %}" class="btn btn-default">Cancel</a>
+        </div>
+    </form>
 </div>
-{% endblock content %}
+{% endblock  %}

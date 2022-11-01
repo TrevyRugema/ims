@@ -10,8 +10,6 @@
     <title>AFLink | Login</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -20,7 +18,6 @@
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Login Page</title>
        <!--Made with love by Mutiullah Samim -->
        
         <!--Bootsrap 4 CDN-->
@@ -37,7 +34,7 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
-                    <h3 >Login <span style="color:brown">AFLink</span></h3>
+                    <h3 ><span>AFLink</span> Login</h3>
                 <div class="card-body">
                     <form method="POST">
                         {% csrf_token %}
@@ -63,7 +60,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="#">Sign Up</a>
+                     Don't have an account? <a href="#">Sign Up</a>
                     </div> 
                     <div class="d-flex justify-content-center">
                         <a href="#">Forgot your password?</a>

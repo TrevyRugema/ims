@@ -1,4 +1,6 @@
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
+from django.views.generic.edit import UpdateView,DeleteView
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 
@@ -24,7 +26,7 @@ from .forms import (
 
 # Supplier views
 @login_required(login_url='login')
-def create_supplier(request):
+def register_supplier(request):
     forms = SupplierForm()
     if request.method == 'POST':
         forms = SupplierForm(request.POST)
@@ -50,6 +52,7 @@ class SupplierListView(ListView):
     model = Supplier
     template_name = 'aflink/supplier_list.html'
     context_object_name = 'supplier'
+    success_url=reverse_lazy('aflink:supplier')
 
 
 # customer views
@@ -93,26 +96,24 @@ def create_item(request):
         'form': forms
     }
     return render(request, 'aflink/addItem.html', context)
-
+#Listing the Item
 class ItemListView(ListView):
     model = Item
     template_name = 'aflink/item_list_cp.html'
     context_object_name = 'item'
+    
+ #Update the Stock Receiving
 
-  #Update the Stock Receiving
+class ItemUpdate(UpdateView):
+    model=Item
+    fields=["__all__"]
+    template_name_suffix='update_item'
 
-def update_item(request, item_id):
-    item_id=int(item_id)
-    try:
-        items=Item.objects.get(id=item_id)
+# Delete the Stock Item
 
-    except Item.DoesNotExist:
-        return redirect('addItem')
-    item_form=ItemForm(request.POST or None, instance=items)
-    if item_form.is_valid():
-        item_form.save()
-        return redirect('item-list')
-    return render(request,'aflink/addItem.html',{'edit_item':item_form})
+class DeleteItem(DeleteView):
+    model=Item
+    success_url=reverse_lazy('item-list')
 
 # Drop views
 @login_required(login_url='login')
@@ -168,7 +169,7 @@ def create_order(request):
             design = forms.cleaned_data['design']
             color = forms.cleaned_data['color']
             customer = forms.cleaned_data['customer']
-            Item = forms.cleaned_data['Item']
+            item_name = forms.cleaned_data['item_name']
             drop = forms.cleaned_data['drop']
             Order.objects.create(
                 supplier=supplier,
@@ -176,7 +177,7 @@ def create_order(request):
                 design=design,
                 color=color,
                 customer=customer,
-                Item=Item,
+                item_name=item_name,
                 drop=drop,
                 status='pending'
             )
