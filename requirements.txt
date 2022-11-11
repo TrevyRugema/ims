@@ -6,6 +6,7 @@ django-codemirror2==0.2
 django-cors-headers==3.13.0
 django-crispy-forms==1.14.0
 django-cte==1.1.4
+django-environ==0.9.0
 django-fsm==2.8.1
 django-fsm-log==3.0.0
 django-js-asset==2.0.0
