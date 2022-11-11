@@ -14,7 +14,7 @@ SECRET_KEY = 'k2z9po4i#n+1p(^ny1el2c!om(^-l+_%&ob0azk0-ike*-)81e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
@@ -35,10 +35,19 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'calculation',
-
-    
-    
+    # Automation WorkFlow
+    'river',
+    'rest_framework.authtoken',
+    'river_admin'
 ]
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'EXCEPTION_HANDLER':'river_admin.views.exception_handler'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +61,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'inventory.urls'
+AUTH_USER_MODEL='app.User'
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.RemoteUserBackend',
+        'django.contrib.auth.backends.ModelBackend',
+)
 
 TEMPLATES = [
     {
@@ -78,7 +92,7 @@ WSGI_APPLICATION = 'inventory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rutre',
+        'NAME': 'test',
         'USER':'postgres',
         'PASSWORD':'rutre',
         'HOST':'localhost',

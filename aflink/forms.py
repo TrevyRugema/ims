@@ -1,7 +1,7 @@
 from django import forms
 import calculation
 from users.models import User
-from .models import Item, Drop, JobCard, Material, Order, Delivery
+from .models import Item, Requisition, JobCard, Order, Delivery
 from django.forms import inlineformset_factory
 
 class SupplierForm(forms.Form):
@@ -95,7 +95,7 @@ class ItemForm(forms.ModelForm):
         receivedBy = forms.ModelChoiceField(queryset=User.objects.all())
         fields =['supplier_name','item_name','batch_no','delivery_no','quantity','quantity','unit_cost','date_received','expiry_date','receivedBy','position','document',]
         widgets = {
-            'supplier_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}),
+            'supplier_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name',}),
             'item_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'item_name'}),
             'batch_no': forms.TextInput(attrs={'class': 'form-control', 'id': 'batch_no'}),
             'delivery_no': forms.TextInput(attrs={'class': 'form-control', 'id': 'delivery_no'}),
@@ -108,10 +108,10 @@ class ItemForm(forms.ModelForm):
         }
         receivedBy = forms.ModelChoiceField(queryset=User.objects.filter(id=1))
 
-class DropForm(forms.ModelForm):
+class RequisitionForm(forms.ModelForm):
     class Meta:
-        model = Drop
-        fields = ['item','quantity','cost','destination','status','requestedby','verifiedby','auhorisedby']
+        model = Requisition
+        fields = ['item','quantity','cost','destination','requestedby','verifiedby','auhorisedby']
         widgets = {
             'item': forms.TextInput(attrs={'class': 'form-control', 'id': 'item'}),
             'quantity': forms.TextInput(attrs={'class': 'form-control', 'id': 'quantity'}),
@@ -125,39 +125,32 @@ class DropForm(forms.ModelForm):
 
 
 
-# class JobCardForm(forms.ModelForm):
-#     class Meta:
-#         model = JobCard
-#         jobcard = forms.ModelChoiceField(queryset=User.objects.filter(id=1))
-#         fields = ['job_type', 'order_number','date','customer','contact','job_descritpion']
-#         widgets = {
-#             'job_type': forms.TextInput(attrs={'class': 'form-control', 'id': 'job_type'}),
-#             'order_number': forms.NumberInput(attrs={'class': 'form-control', 'id': 'order_number'}),
-#             'date': forms.DateInput(attrs={'class': 'form-control', 'id': 'date'}),
-#             'customer': forms.TextInput(attrs={'class': 'form-control', 'id': 'customer'}),
-#             'contact': forms.NumberInput(attrs={'class': 'form-control', 'id': 'contact'}),
-#             'job_descritpion': forms.TextInput(attrs={'class': 'form-control', 'id': 'job_descritpion'}),
+class JobCardForm(forms.ModelForm):
+    class Meta:
+        model = JobCard
+        fields=['job_type','order_number','date','customer','contact','job_descritpion']
+        widgets={
+            'customer': forms.TextInput(attrs={'class': 'form-control', 'id': 'customer','size':10}),
+            'job_type': forms.TextInput(attrs={'class': 'form-control', 'id': 'job_type'}),
+            'order_number': forms.TextInput(attrs={'class': 'form-control', 'id': 'order_number'}),
+            'contact': forms.TextInput(attrs={'class': 'form-control', 'id': 'contact'}),
+            'date': forms.DateInput(
+                format=('%Y-%m-%d'),
+                attrs={'class': 'form-control', 
+                    'placeholder': 'Select a date',
+                    'type': 'date'
+                    }),
+            'job_descritpion':forms.Textarea(attrs={'class':'form-control','id':'job_descritpion'})
+
+            
+        }
         
-
-#         }
-# class MaterialForm(forms.ModelForm):
-#     Add=forms.IntegerField(
-#         widget=calculation.FormulaInput('add')
-#     )
-#     class Meta:
-#         model=JobCard
-#         fields=['material_requested','Description','quantity','width','height']
-# JobCardFormSet=forms.inlineformset_factory (JobCard,JobCardForm,MaterialForm)
-
-JobFormSet=inlineformset_factory(JobCard,Material,fields=('material_requested', 'Description','quantity','width','height'))
-jobcard=JobCard.objects.get(name='jobcard')
-formset=JobFormSet(instance=jobcard)
 
 
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['supplier', 'jobcard', 'design', 'color', 'customer', 'item_name', 'drop']
+        fields = ['supplier', 'jobcard', 'design', 'color', 'customer', 'item_name']
 
         widgets = {
             'supplier': forms.Select(attrs={'class': 'form-control', 'id': 'supplier'}),
@@ -166,7 +159,7 @@ class OrderForm(forms.ModelForm):
             'color': forms.TextInput(attrs={'class': 'form-control', 'id': 'color'}),
             'customer': forms.Select(attrs={'class': 'form-control', 'id': 'customer'}),
             'item_name': forms.Select(attrs={'class': 'form-control', 'id': 'item_name'}),
-            'drop': forms.Select(attrs={'class': 'form-control', 'id': 'drop'}),
+           
         }
 
 

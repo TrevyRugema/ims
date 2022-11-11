@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,  login, logout
 from django.contrib.auth.decorators import login_required
@@ -39,7 +39,7 @@ def register(request):
             msg.attach_alternative(html_context,'txt/html')
             msg.send()
             messages.success(request,'Your Account Has Been Created')
-            redirect('dashboard')
+            redirect('login')
         else:
             form=UserCreationForm()
         return render(request,'users/register',{'form':form,'title':'register here'})

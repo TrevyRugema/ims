@@ -20,6 +20,8 @@ class Stock(models.Model):
 
     def __str__(self):
         return self.item 
+    class Meta:
+        abstract=True
 
     @property
 

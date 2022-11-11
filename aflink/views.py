@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-from django.views.generic.edit import UpdateView,DeleteView
-from django.views.generic import ListView
+from django.shortcuts import (render, redirect, get_object_or_404,HttpResponseRedirect)
+from django.views.generic.edit import CreateView,  UpdateView,DeleteView
+from django.views.generic import ListView,DetailView
 from django.contrib.auth.decorators import login_required
 
 from users.models import User
@@ -9,7 +9,7 @@ from .models import (
     Supplier,
     Customer,
     Item,
-    Drop,
+    Requisition,
     JobCard,
     Order,
     Delivery
@@ -18,7 +18,7 @@ from .forms import (
     SupplierForm,
     CustomerForm,
     ItemForm,
-    DropForm,
+    RequisitionForm,
     JobCardForm,
     OrderForm,
     DeliveryForm
@@ -118,9 +118,9 @@ class DeleteItem(DeleteView):
 # Drop views
 @login_required(login_url='login')
 def create_drop(request):
-    forms = DropForm()
+    forms = RequisitionForm()
     if request.method == 'POST':
-        forms = DropForm(request.POST)
+        forms = RequisitionForm(request.POST)
         if forms.is_valid():
             forms.save()
             return redirect('drop-list')
@@ -131,30 +131,68 @@ def create_drop(request):
 
 
 class DropListView(ListView):
-    model = Drop
+    model = Requisition
     template_name = 'aflink/category_list.html'
     context_object_name = 'drop'
 
 
-# JobCard views
-@login_required(login_url='login')
-def create_jobcard(request):
-    forms = JobCardForm()
-    if request.method == 'POST':
-        forms = JobCardForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect('jobcard-list')
-    context = {
-        'form': forms
-    }
-    return render(request, 'aflink/addjobCard.html', context)
+# # JobCard views
+# @login_required(login_url='login')
+# def create_jobcard(request):
+#     context={}
+#     form=JobCardForm()
+#     if request.method == 'POST':
+#         form = JobCardForm(request.POST or None)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('jobcard-list')
+#     context['form']=form
+#     return render(request, 'aflink/addjobCard.html', context)
+
+# def jobcard_detail(request,id):
+#     context={}
+#     context['jobcard']=JobCard.objects.get(id=id)
+#     return render(request,'aflink/jobcard_details.html',context)
+
+# def jobcard_update(request,id):
+#     context={}
+#     obj=get_object_or_404(JobCard,id=id)
+#     form=JobCardForm(request.POST or None,instance=obj)
+#     if form.is_valid():
+#         form.save()
+#         return HttpResponseRedirect('jobcard-list/'+id)
+#     context['form']=form
+#     return render(request,'aflink/jobcard_update.html',context)
 
 
-class JobCardListView(ListView):
-    model = JobCard
-    template_name = 'aflink/jobcard_list.html'
-    context_object_name = 'job'
+# class JobCardListView(ListView):
+#     model = JobCard
+#     template_name = 'aflink/jobcard_list.html'
+#     context_object_name = 'job'
+class JobCardList(ListView):
+    model=JobCard
+    
+
+class JobCardView(DetailView):
+    model=JobCard
+    success_url=reverse_lazy('jobcard-list')
+    context_object_name='job'
+
+class JobCardCreate(CreateView):
+    model=JobCard
+    # fields=['job_type','order_number','date','customer','contact','job_descritpion']
+    form_class=JobCardForm
+    success_url=reverse_lazy('jobcard-list')
+    context_object_name='job'
+class JobcardUpdate(UpdateView):
+    model=JobCard
+    fields=['job_type','order_number','date','customer','contact','job_descritpion']
+    success_url=reverse_lazy('jobcard-list')
+    context_object_name='job'
+class JobCardDelete(DeleteView):
+    model=JobCard
+    success_url=reverse_lazy('jobcard-list')
+    context_object_name='job'
 
 
 # Order views
