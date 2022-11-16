@@ -79,6 +79,12 @@
             <!-- Animated -->
             <div class="animated fadeIn">
                 {% block content %}
+                {% if request.user.is_authicated %}
+                The current_user is :{{ request.user.username }} 
+                <br>
+                <br>
+                The type of the user is :{{ request.user.type }}
+                {% endif %}
                 {% endblock content %}
             </div>
             <!-- .animated -->

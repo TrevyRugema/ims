@@ -88,9 +88,12 @@
                                 <th class="serial">Id</th>
                                 <th>customer </th>
                                 <th>Job Type</th>
-                                <th>order_number</th>
+                                <th>Purchase Order</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
+                                <th>Modified At</th>
+                                <th>Mpdified By</th>
                                 <th>contact</th>
-                                <th>Date</th>
                                 <th>Job Description</th>
                             </tr>
                         </thead>
@@ -101,8 +104,12 @@
         <td>{{ job.customer}}</td>
         <td>{{ job.job_type }}</td>
         <td>{{ job.order_number }}</td>
+        <td>{{ job.create_at }}</td>
+        <td>{{ job.created_by }}</td>
+        <td>{{ job.modified_time }}</td>
+        <td>{{ job.modified_by }}</td>
+        <td>{{ job.customer }}</td>
         <td>{{ job.contact }}</td>
-        <td>{{ job.date }}</td>
         <td>{{ job.job_descritpion }}</td>
     </tr>
     <td><a style="color:brown" href="{% url 'jobcard_view' job.pk %}">view</a></td>

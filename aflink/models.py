@@ -18,6 +18,21 @@ Approvals=(
     ('GM-Approvals','GM-Approvals'),
     ('Issuing-Materials','Issuing-Materials')
 )
+
+class JobCard(models.Model):
+    job_type=models.CharField("Job Type", max_length=50,null=True) #  here ithis field will have a choice 
+    order_number=models.CharField("Order Number", max_length=50,null=True)
+    create_at=models.DateField(null=True)
+    created_by=models.ForeignKey(User,on_delete=models.CASCADE, to_field='username',related_name='job_created_by')
+    modified_time=models.DateField(null=True,blank=True)
+    modified_by=models.ForeignKey(User,on_delete=models.CASCADE, to_field='username',related_name='modified_by')
+    customer=models.CharField(max_length=200,null=True)
+    contact=models.CharField(max_length=13,null=True)
+    job_descritpion=models.TextField("Job Description",null=True)
+    def __str__(self):
+        return self.job_type
+
+
 class Supplier(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
@@ -73,32 +88,6 @@ class Requisition(models.Model):
 
     def __str__(self):
         return self.item
-
-class JobCard(models.Model):
-    job_type=models.CharField("Job Type", max_length=50,null=True) #  here ithis field will have a choice 
-    order_number=models.CharField("Order Number", max_length=50,null=True)
-    date=models.DateField(null=True)
-    customer=models.CharField(max_length=200,null=True)
-    contact=models.CharField(max_length=13,null=True)
-    job_descritpion=models.TextField("Job Description",null=True)
-    def __str__(self):
-        return self.job_type
-
-class JobCardFLow(models.Model):
-    jobcard=models.ForeignKey(JobCard,on_delete=models.PROTECT)
-    state=FSMField(default='new')
-@transition(field='state',source=['Job-Assess'],target=Approvals)
-
-# class Material(models.Model):
-#     material_requested=models.CharField("Material Requested", max_length=100)
-#     Description=models.TextField()
-#     quantity=models.IntegerField()
-#     width=models.DecimalField(max_digits=10,decimal_places=0)
-#     height=models.DecimalField(max_digits=20,decimal_places=0)
-#     jobcard=models.ForeignKey(JobCard, on_delete=models.PROTECT)
-
-#     def __str__(self):
-#         return self.material_requested
 
 
 class Order(models.Model):

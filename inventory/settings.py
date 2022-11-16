@@ -37,22 +37,22 @@ INSTALLED_APPS = [
     # local
     'users.apps.UsersConfig',
     'aflink',
+    # RESTFRAMEWORK
+    'rest_framework',
     #Template
     'widget_tweaks',
     'crispy_forms',
     'calculation',
     # Automation WorkFlow
-    'river',
-    'rest_framework.authtoken',
-    'river_admin'
+    'viewflow'
 ]
-
-REST_FRAMEWORK={
-    'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'EXCEPTION_HANDLER':'river_admin.views.exception_handler'
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+         'rest_framework.permissions.AllowAny'
+    ]
 }
 
 MIDDLEWARE = [

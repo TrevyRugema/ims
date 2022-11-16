@@ -128,13 +128,19 @@ class RequisitionForm(forms.ModelForm):
 class JobCardForm(forms.ModelForm):
     class Meta:
         model = JobCard
-        fields=['job_type','order_number','date','customer','contact','job_descritpion']
+        fields=['job_type','order_number','create_at','created_by','modified_time','modified_by','customer','contact','job_descritpion']
         widgets={
             'customer': forms.TextInput(attrs={'class': 'form-control', 'id': 'customer','size':10}),
             'job_type': forms.TextInput(attrs={'class': 'form-control', 'id': 'job_type'}),
             'order_number': forms.TextInput(attrs={'class': 'form-control', 'id': 'order_number'}),
             'contact': forms.TextInput(attrs={'class': 'form-control', 'id': 'contact'}),
-            'date': forms.DateInput(
+            'create_at': forms.DateInput(
+                format=('%Y-%m-%d'),
+                attrs={'class': 'form-control', 
+                    'placeholder': 'Select a date',
+                    'type': 'date'
+                    }),
+            'modified_time_at':forms.DateInput(
                 format=('%Y-%m-%d'),
                 attrs={'class': 'form-control', 
                     'placeholder': 'Select a date',
