@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     #Template
     'widget_tweaks',
     'crispy_forms',
-    'calculation',
-    # Automation WorkFlow
-    'viewflow'
 ]
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -98,11 +95,11 @@ WSGI_APPLICATION = 'inventory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('NAME'),
-        'USER':env('USER'),
-        'PASSWORD':env('PASSWORD'),
-        'HOST':env('HOST'),
-        'PORT':env('PORT'),
+        'NAME': 'ims',
+        'USER':'postgres',
+        'PASSWORD':'rutre',
+        'HOST':'localhost',
+        'PORT':5432,
     }
 }
 # Password validation
@@ -150,13 +147,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'users.User'
 #Email-backends
 LOGIN_REDIRECT_URL='dashboard'
-EMAIL_BACKEND=env('EMAIL_BACKEND')
-EMAIL_HOST=env('EMAIL_HOST')
-EMAIL_PORT=env('EMAIL_PORT')
-EMAIL_USE_TLS=env('EMAIL_USE_TLS')
+# EMAIL_BACKEND=env('EMAIL_BACKEND')
+# EMAIL_HOST=env('EMAIL_HOST')
+# EMAIL_PORT=env('EMAIL_PORT')
+# EMAIL_USE_TLS=env('EMAIL_USE_TLS')
 ###### Email collapse Id ############
-EMAIL_HOST_USER=env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWRD=env('EMAIL_HOST_PASSWRD')
+# EMAIL_HOST_USER=env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWRD=env('EMAIL_HOST_PASSWRD')
 
 
 # DEFAULT VALUE

@@ -10,7 +10,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        {% comment %} <h1>Dashboard</h1> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -18,8 +18,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                             <li><a href="{% url 'item-list' %}">Item</a></li>
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                         </ol>
                     </div>
                 </div>

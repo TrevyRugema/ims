@@ -111,7 +111,7 @@ class ItemForm(forms.ModelForm):
 class RequisitionForm(forms.ModelForm):
     class Meta:
         model = Requisition
-        fields = ['item','quantity','cost','destination','requestedby','verifiedby','auhorisedby']
+        fields = ['item','quantity','cost','destination','requested_by','verified_by','authorized_by','approved_by']
         widgets = {
             'item': forms.TextInput(attrs={'class': 'form-control', 'id': 'item'}),
             'quantity': forms.TextInput(attrs={'class': 'form-control', 'id': 'quantity'}),
@@ -119,16 +119,18 @@ class RequisitionForm(forms.ModelForm):
             'destination': forms.TextInput(attrs={'class': 'form-control', 'id': 'destination'}),
             'status':forms.SelectMultiple(attrs={'class':'form-control','id':'status'})
         }
-        requestedby=forms.ModelChoiceField(queryset=User.objects.all())
-        verifiedby=forms.ModelChoiceField(queryset=User.objects.all())
-        auhorisedby=forms.ModelChoiceField(queryset=User.objects.all())
+        requested_by=forms.ModelChoiceField(queryset=User.objects.all())
+        verified_by=forms.ModelChoiceField(queryset=User.objects.all())
+        authorized_by=forms.ModelChoiceField(queryset=User.objects.all())
+        approved_by=forms.ModelChoiceField(queryset=User.objects.all())
+
 
 
 
 class JobCardForm(forms.ModelForm):
     class Meta:
         model = JobCard
-        fields=['job_type','order_number','create_at','created_by','modified_time','modified_by','customer','contact','job_descritpion']
+        fields=['job_type','order_number','create_at','created_by','modified_at','modified_by','customer','contact','job_descritpion']
         widgets={
             'customer': forms.TextInput(attrs={'class': 'form-control', 'id': 'customer','size':10}),
             'job_type': forms.TextInput(attrs={'class': 'form-control', 'id': 'job_type'}),
@@ -140,7 +142,7 @@ class JobCardForm(forms.ModelForm):
                     'placeholder': 'Select a date',
                     'type': 'date'
                     }),
-            'modified_time_at':forms.DateInput(
+            'modified_at':forms.DateInput(
                 format=('%Y-%m-%d'),
                 attrs={'class': 'form-control', 
                     'placeholder': 'Select a date',
@@ -150,6 +152,8 @@ class JobCardForm(forms.ModelForm):
 
             
         }
+        modified_by = forms.ModelChoiceField(queryset=User.objects.filter(id=1))
+
         
 
 

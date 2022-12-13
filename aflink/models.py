@@ -1,36 +1,38 @@
-
+from typing import Iterable,List
 from django.utils import timezone
 from django.db.models import TextChoices
 from django.db import models
 from users.models import User
 from django_fsm import FSMField, transition
 from django.utils.translation import gettext_lazy as _
+from aflink.approval.models import ApprovalModel
 
 class StatusChoices(TextChoices):
-    NEW='NEW',_('New'),
+    NEW='PENDING',_('Pending'),
     APPROVED='APPROVED',_('Approved'),
     REJECTED='REJECTED',_('Rejected'),
     RECEIVED='RECEIVED',_('Received')
-Approvals=(
-    ('Job-Assess','Job-Assess', ),
-    ('Finance-Approvals','Finance-Approvals'),
-    ('Logistics-Approvals','Logistics-Approvals'),
-    ('GM-Approvals','GM-Approvals'),
-    ('Issuing-Materials','Issuing-Materials')
-)
 
-class JobCard(models.Model):
+class JobCard(ApprovalModel):
     job_type=models.CharField("Job Type", max_length=50,null=True) #  here ithis field will have a choice 
     order_number=models.CharField("Order Number", max_length=50,null=True)
     create_at=models.DateField(null=True)
     created_by=models.ForeignKey(User,on_delete=models.CASCADE, to_field='username',related_name='job_created_by')
-    modified_time=models.DateField(null=True,blank=True)
-    modified_by=models.ForeignKey(User,on_delete=models.CASCADE, to_field='username',related_name='modified_by')
+    modified_at=models.DateField(null=True,blank=True)
+    modified_by=models.OneToOneField(User,on_delete=models.CASCADE, to_field='username',related_name='modified_by')
     customer=models.CharField(max_length=200,null=True)
     contact=models.CharField(max_length=13,null=True)
     job_descritpion=models.TextField("Job Description",null=True)
     def __str__(self):
         return self.job_type
+
+    class Meta:
+        db_table="Receiving Job Card"
+        permissions=(
+            ('set_who_can_verify'),('set_who_can_verify'),
+            ('set_who_can_authorize'),('set_who_can_authorize'),
+            ('set_who_can_approve'),('set_who_can_approve'),     
+        )
 
 
 class Supplier(models.Model):
@@ -82,13 +84,27 @@ class Requisition(models.Model):
     quantity=models.IntegerField(null=True)
     cost=models.DecimalField(max_digits=20,decimal_places=0,null=True)
     destination=models.CharField(max_length=255,null=True)
-    requestedby=models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='requestedby',null=True)
-    verifiedby=models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='verifiedby',null=True)
-    auhorisedby=models.ForeignKey(User,on_delete=models.DO_NOTHING, related_name='auhorisedby',null=True)
+    requested_by=models.OneToOneField(User,on_delete=models.DO_NOTHING,related_name='requestedby',null=True)
+    verified_by=models.OneToOneField(User,on_delete=models.DO_NOTHING, related_name='auhorisedby',null=True)
+    authorized_by=models.OneToOneField(User,on_delete=models.DO_NOTHING, related_name='auhorisedby',null=True)
+    approved_by=models.OneToOneField(User,primary_key=True,db_column=item,db_index=True,on_delete=models.CASCADE,related_name='Approved_by')
 
     def __str__(self):
         return self.item
 
+    class Meta:
+        db_table='Item Requisition'
+        permissions=(
+            ('is_staff'),('can_verify'),
+            ('is_logistics'),('can_verify'),
+            ('is_admin'),('can_verify'),
+            ('is_staff'),('can_authorize'),
+            ('is_admin',('can_authorize'),))
+
+        
+            
+
+        
 
 class Order(models.Model):
     STATUS_CHOICE = (
